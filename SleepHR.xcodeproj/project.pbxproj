@@ -7,23 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D132A0B20A61D09004E47B0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D132A0920A61D09004E47B0 /* Main.storyboard */; };
+		3D132A0C20A61D09004E47B0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D132A0A20A61D09004E47B0 /* SecondViewController.swift */; };
 		3DD556AE208B8BF1008DF9E1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD556AD208B8BF1008DF9E1 /* AppDelegate.swift */; };
 		3DD556B0208B8BF1008DF9E1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD556AF208B8BF1008DF9E1 /* FirstViewController.swift */; };
-		3DD556B2208B8BF1008DF9E1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD556B1208B8BF1008DF9E1 /* SecondViewController.swift */; };
-		3DD556B5208B8BF1008DF9E1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD556B3208B8BF1008DF9E1 /* Main.storyboard */; };
 		3DD556B7208B8BF1008DF9E1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DD556B6208B8BF1008DF9E1 /* Assets.xcassets */; };
 		3DD556BA208B8BF1008DF9E1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DD556B8208B8BF1008DF9E1 /* LaunchScreen.storyboard */; };
+		3DD556C4208B8CBF008DF9E1 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD556C3208B8CBF008DF9E1 /* HealthKit.framework */; };
+		3DD556D1208BA4A9008DF9E1 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD556CD208BA4A8008DF9E1 /* Bolts.framework */; };
+		3DD556D2208BA4A9008DF9E1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD556CE208BA4A8008DF9E1 /* FBSDKCoreKit.framework */; };
+		3DD556D3208BA4A9008DF9E1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD556CF208BA4A9008DF9E1 /* FBSDKLoginKit.framework */; };
+		3DD556D4208BA4A9008DF9E1 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD556D0208BA4A9008DF9E1 /* FBSDKShareKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D132A0920A61D09004E47B0 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3D132A0A20A61D09004E47B0 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		3DCEE002208BC76700699781 /* SleepHR-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SleepHR-Bridging-Header.h"; sourceTree = "<group>"; };
 		3DD556AA208B8BF1008DF9E1 /* SleepHR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SleepHR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD556AD208B8BF1008DF9E1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DD556AF208B8BF1008DF9E1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		3DD556B1208B8BF1008DF9E1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
-		3DD556B4208B8BF1008DF9E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3DD556B6208B8BF1008DF9E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3DD556B9208B8BF1008DF9E1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3DD556BB208B8BF1008DF9E1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3DD556C1208B8CBF008DF9E1 /* SleepHR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SleepHR.entitlements; sourceTree = "<group>"; };
+		3DD556C3208B8CBF008DF9E1 /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		3DD556CD208BA4A8008DF9E1 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		3DD556CE208BA4A8008DF9E1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		3DD556CF208BA4A9008DF9E1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		3DD556D0208BA4A9008DF9E1 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +43,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD556C4208B8CBF008DF9E1 /* HealthKit.framework in Frameworks */,
+				3DD556D1208BA4A9008DF9E1 /* Bolts.framework in Frameworks */,
+				3DD556D2208BA4A9008DF9E1 /* FBSDKCoreKit.framework in Frameworks */,
+				3DD556D4208BA4A9008DF9E1 /* FBSDKShareKit.framework in Frameworks */,
+				3DD556D3208BA4A9008DF9E1 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +59,7 @@
 			children = (
 				3DD556AC208B8BF1008DF9E1 /* SleepHR */,
 				3DD556AB208B8BF1008DF9E1 /* Products */,
+				3DD556C2208B8CBF008DF9E1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +74,29 @@
 		3DD556AC208B8BF1008DF9E1 /* SleepHR */ = {
 			isa = PBXGroup;
 			children = (
+				3DD556C1208B8CBF008DF9E1 /* SleepHR.entitlements */,
 				3DD556AD208B8BF1008DF9E1 /* AppDelegate.swift */,
 				3DD556AF208B8BF1008DF9E1 /* FirstViewController.swift */,
-				3DD556B1208B8BF1008DF9E1 /* SecondViewController.swift */,
-				3DD556B3208B8BF1008DF9E1 /* Main.storyboard */,
+				3D132A0A20A61D09004E47B0 /* SecondViewController.swift */,
+				3D132A0920A61D09004E47B0 /* Main.storyboard */,
 				3DD556B6208B8BF1008DF9E1 /* Assets.xcassets */,
 				3DD556B8208B8BF1008DF9E1 /* LaunchScreen.storyboard */,
 				3DD556BB208B8BF1008DF9E1 /* Info.plist */,
+				3DCEE002208BC76700699781 /* SleepHR-Bridging-Header.h */,
 			);
 			path = SleepHR;
+			sourceTree = "<group>";
+		};
+		3DD556C2208B8CBF008DF9E1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3DD556CD208BA4A8008DF9E1 /* Bolts.framework */,
+				3DD556CE208BA4A8008DF9E1 /* FBSDKCoreKit.framework */,
+				3DD556CF208BA4A9008DF9E1 /* FBSDKLoginKit.framework */,
+				3DD556D0208BA4A9008DF9E1 /* FBSDKShareKit.framework */,
+				3DD556C3208B8CBF008DF9E1 /* HealthKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -99,7 +131,13 @@
 				TargetAttributes = {
 					3DD556A9208B8BF1008DF9E1 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -126,9 +164,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D132A0B20A61D09004E47B0 /* Main.storyboard in Resources */,
 				3DD556BA208B8BF1008DF9E1 /* LaunchScreen.storyboard in Resources */,
 				3DD556B7208B8BF1008DF9E1 /* Assets.xcassets in Resources */,
-				3DD556B5208B8BF1008DF9E1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,7 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DD556B2208B8BF1008DF9E1 /* SecondViewController.swift in Sources */,
+				3D132A0C20A61D09004E47B0 /* SecondViewController.swift in Sources */,
 				3DD556AE208B8BF1008DF9E1 /* AppDelegate.swift in Sources */,
 				3DD556B0208B8BF1008DF9E1 /* FirstViewController.swift in Sources */,
 			);
@@ -148,14 +186,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		3DD556B3208B8BF1008DF9E1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3DD556B4208B8BF1008DF9E1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3DD556B8208B8BF1008DF9E1 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -278,11 +308,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SleepHR/SleepHR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FBKW8J4CV6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SleepHR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yanxin.SleepHR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanxin.SleepHR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SleepHR/SleepHR-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -292,11 +331,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = SleepHR/SleepHR.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FBKW8J4CV6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SleepHR/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = yanxin.SleepHR;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yanxin.SleepHR;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SleepHR/SleepHR-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
