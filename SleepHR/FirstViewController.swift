@@ -28,8 +28,6 @@ extension UserDefaults {
 class FirstViewController: UIViewController {
 
     let healthStore = HKHealthStore()
-    var timeToSleep = Date()
-    var timeToWake = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +47,17 @@ class FirstViewController: UIViewController {
     
     @IBAction func saveSleepTime(_ sender: Any) {
         saveSleepAnalysis()
+        let timeToSleep = UserDefaults.standard.object(forKey: "sleepTime") as! Date
+        let timeToWake = UserDefaults.standard.object(forKey: "wakeTime") as! Date
+        UserDefaults.standard.removeObject(forKey: "sleepTime")
+        UserDefaults.standard.removeObject(forKey: "wakeTime")
+        let urlString = "https://sleephr.herokuapp.com/survey?_id=\(UserDefaults.standard.object(forKey: "myFBID") as! String)&timeToSleep=\(timeToSleep.millisecondsSince1970)&timeToWake=\(timeToWake.millisecondsSince1970)"
         
+        let alert = UIAlertController(title: "Almost there", message: "Your data has been saved successfully! Please finish a 10-sec self-report survey honestly!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action:UIAlertAction!) -> Void in
+            UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
+        }))
+        self.present(alert, animated: true)
     }
     
     @IBAction func getSleepAnalysis(_ sender: Any) {
@@ -88,16 +96,13 @@ class FirstViewController: UIViewController {
     }
     
     func retrieveSleepAnalysis() {
-        // first, we define the object type we want
         if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
-            
+        
             // Use a sortDescriptor to get the recent data first
             let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierEndDate, ascending: false)
             
             let calendar = Calendar.current
             let now = Date()
- 
-
             let components = calendar.dateComponents([.year, .month, .day], from: now)
             var startDate = calendar.date(from: components)
             startDate = calendar.date(byAdding: .day, value: -1, to: startDate!)
@@ -114,90 +119,82 @@ class FirstViewController: UIViewController {
                 
                 if let result = tmpResult {
                     // do something with my data
-                    if(result.first != nil){
-                        self.timeToSleep = max((result.last?.startDate)!, self.timeToSleep)
-                    }
+                    let userdefaults = UserDefaults.standard
                     if(result.last != nil){
-                        self.timeToWake = min((result.first?.endDate)!, self.timeToWake)
-                    }
-                    
-                    for item in result {
-                        if let sample = item as? HKCategorySample {
-                            let value = (sample.value == HKCategoryValueSleepAnalysis.inBed.rawValue) ? "InBed" : "Asleep"
-//                            print("Healthkit sleep: \(sample.startDate.millisecondsSince1970) \(sample.endDate.millisecondsSince1970) - value: \(value)")
-                            print("Healthkit sleep: \(sample.startDate) \(sample.endDate) - value: \(value)")
+                        if(userdefaults.contains(key: "sleepTime")){
+                            let timeToSleep = max((result.last!.startDate) , UserDefaults.standard.object(forKey: "sleepTime") as! Date)
+                            UserDefaults.standard.set(timeToSleep, forKey: "sleepTime")
+                        }else{
+                            UserDefaults.standard.set((result.last!.startDate) , forKey: "sleepTime")
                         }
                     }
+                    
+                    if(result.first != nil){
+                        if(userdefaults.contains(key: "wakeTime")){
+                            let timeToWake = min((result.first!.endDate) , UserDefaults.standard.object(forKey: "wakeTime") as! Date)
+                            UserDefaults.standard.set(timeToWake, forKey: "wakeTime")
+                        }else{
+                            UserDefaults.standard.set((result.first!.endDate) , forKey: "wakeTime")
+                        }
+                    }
+
+//                    for item in result {
+//                        if let sample = item as? HKCategorySample {
+//                            let value = (sample.value == HKCategoryValueSleepAnalysis.inBed.rawValue) ? "InBed" : "Asleep"
+////                            print("Healthkit sleep: \(sample.startDate.millisecondsSince1970) \(sample.endDate.millisecondsSince1970) - value: \(value)")
+//                            print("Healthkit sleep: \(sample.startDate) \(sample.endDate) - value: \(value)")
+//                        }
+//                    }
                 }
             }
-            
-            // finally, we execute our query
             healthStore.execute(query)
         }
     }
     
     func saveSleepAnalysis() {
-        let userdefaults = UserDefaults.standard
-        if(userdefaults.contains(key: "sleepTime")){
-            timeToSleep = UserDefaults.standard.object(forKey: "sleepTime") as! Date
-        }
-        if(userdefaults.contains(key: "wakeTime")){
-            timeToWake = UserDefaults.standard.object(forKey: "wakeTime") as! Date
-        }
         
         // make combine estimation
         retrieveSleepAnalysis()
         
-        // alarmTime and endTime are NSDate objects
+        let userdefaults = UserDefaults.standard
+        if(!userdefaults.contains(key: "sleepTime")){
+            /// no record
+            let alert = UIAlertController(title: "Error", message: "No self-reported or automatically recorded data for time to sleep!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        if(!userdefaults.contains(key: "wakeTime")){
+            let alert = UIAlertController(title: "Error", message: "No self-reported or automatically recorded data for time to wake up!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        /// push in Health app
         if let sleepType = HKObjectType.categoryType(forIdentifier: HKCategoryTypeIdentifier.sleepAnalysis) {
+            /// use asleep value to distinguish from HKCategoryValueSleepAnalysis.inBed.rawValue
             
-//            // we create our new object we want to push in Health app
-//            let object = HKCategorySample(type:sleepType, value: HKCategoryValueSleepAnalysis.inBed.rawValue, start: self.timeToSleep, end: self.timeToWake)
-//
-//            // at the end, we save it
-//            healthStore.save(object, withCompletion: { (success, error) -> Void in
-//
-//                if error != nil {
-//                    // something happened
-//                    return
-//                }
-//
-//                if success {
-//                    print("My new data was saved in HealthKit")
-//
-//                } else {
-//                    // something happened again
-//                }
-//
-//            })
+            let object = HKCategorySample(type:sleepType, value: HKCategoryValueSleepAnalysis.asleep.rawValue, start: UserDefaults.standard.object(forKey: "sleepTime") as! Date, end: UserDefaults.standard.object(forKey: "wakeTime") as! Date)
             
-            
-            let object2 = HKCategorySample(type:sleepType, value: HKCategoryValueSleepAnalysis.asleep.rawValue, start: timeToSleep, end: timeToWake)
-            
-            healthStore.save(object2, withCompletion: { (success, error) -> Void in
+            healthStore.save(object, withCompletion: { (success, error) -> Void in
                 if error != nil {
-                    // something happened
+                    let alert = UIAlertController(title: "Error", message: "Cannot push data into Apple HealthKit!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
                     return
                 }
                 
                 if success {
                     print("saved in HealthKit")
                 } else {
-                    // something happened again
+                    let alert = UIAlertController(title: "Error", message: "Cannot push data into Apple HealthKit!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+                    self.present(alert, animated: true)
+                    return
                 }
-                
             })
-            
         }
-        let url = URL(string: "https://sleephr.herokuapp.com")
-        var request = URLRequest(url: url!)
-        request.httpMethod = "GET"
-       
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
-            print(NSString(data: data!, encoding: String.Encoding.utf8.rawValue))
-        }
-        
-        
     }
 }
 

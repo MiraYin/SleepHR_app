@@ -6,10 +6,10 @@
          contextName = "closure #1 in SecondViewController.fetchProfile():SecondViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "print(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as! String)">
+               value = "userInfo[&quot;id&quot;] as? String">
             </PersistentString>
             <PersistentString
-               value = "userInfo[&quot;id&quot;] as? String">
+               value = "print(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as! String)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -17,16 +17,49 @@
          contextName = "FirstViewController.retrieveSleepAnalysis():FirstViewController.swift">
       </ContextState>
       <ContextState
-         contextName = "SecondViewController.fetchProfile():SecondViewController.swift">
+         contextName = "closure #2 in SecondViewController.fetchProfile():SecondViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userInfo[&quot;summary&quot;] as? Int">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "SecondViewController.loadView():SecondViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "UIView">
+               value = "view.bounds">
             </PersistentString>
             <PersistentString
-               value = "view.bounds">
+               value = "UIView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SecondViewController.fetchProfile():SecondViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "SecondViewController.report(_:):SecondViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.object(forKey: &quot;myFBID&quot;)">
+            </PersistentString>
+            <PersistentString
+               value = "&quot;https://sleephr.herokuapp.com/report?_id=\(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as? String)&amp;analysisRange=\(10)&quot;">
+            </PersistentString>
+            <PersistentString
+               value = "UserDefaults.standard">
+            </PersistentString>
+            <PersistentString
+               value = "myURL = URL(string: &quot;https://sleephr.herokuapp.com/report?_id=\(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as! String)&amp;analysisRange=\(10)&quot;)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SecondViewController.updateUserInfo():SecondViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "UserDefaults.standard.stringArray(forKey: &quot;id_list&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -38,23 +71,6 @@
          <PersistentStrings>
             <PersistentString
                value = "UserDefaults.standard">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "SecondViewController.report(_:):SecondViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "myURL = URL(string: &quot;https://sleephr.herokuapp.com/report?_id=\(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as! String)&amp;analysisRange=\(10)&quot;)">
-            </PersistentString>
-            <PersistentString
-               value = "&quot;https://sleephr.herokuapp.com/report?_id=\(UserDefaults.standard.object(forKey: &quot;myFBID&quot;) as? String)&amp;analysisRange=\(10)&quot;">
-            </PersistentString>
-            <PersistentString
-               value = "UserDefaults.standard">
-            </PersistentString>
-            <PersistentString
-               value = "UserDefaults.standard.object(forKey: &quot;myFBID&quot;)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

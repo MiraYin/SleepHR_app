@@ -44,19 +44,20 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
         // Do any additional setup after loading the view, typically from a nib.
         view.addSubview(loginButton)
 //        loginButton.center = view.center
-        loginButton.center = CGPoint(x: view.center.x, y: 400)
+        loginButton.center = CGPoint(x: view.center.x, y: 570)
         loginButton.delegate = self
     
         if(FBSDKAccessToken.current() != nil){
             fetchProfile()
+        }else{
+            let alert = UIAlertController(title: "Error", message: "Please Log in with Facebook account first!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
         }
     }
     
     func fetchProfile(){
         print("fetch profile")
-        
-//        let params = ["fields": "id, first_name, last_name, name, email, picture"]
-//        let parameters = ["fields": "id, name, email, first_name, last_name, picture.type(large)"]
         
         FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name"]).start {(connection, result, error) -> Void in
             if error != nil{
@@ -75,20 +76,49 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
             }
             if let userInfo = result as? [String: Any] {
                 print(userInfo)
-                let total_count = userInfo["summary"] as! Int
                 let friend_list = userInfo["data"] as! [NSDictionary]
                 var id_list: [String] = []
-                id_list.append(UserDefaults.standard.object(forKey: "myFBID") as! String)
-                
                 for friend in friend_list {
                     id_list.append(friend["id"] as! String)
                 }
-                
                 UserDefaults.standard.set(id_list, forKey: "id_list")
+                self.updateUserInfo()
             }
         }
     }
 
+    func updateUserInfo(){
+        // prepare json data
+        let json: [String: Any] = ["_id": UserDefaults.standard.object(forKey: "myFBID") as! String,
+                                   "userName": UserDefaults.standard.object(forKey: "myName") as! String,
+                                   "friends": UserDefaults.standard.stringArray(forKey: "id_list") as! [String]]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        // create post request
+        let myURL = URL(string: "https://sleephr.herokuapp.com/api/updateuser")
+//        let myURL = URL(string: "https://localhost:5000/api/updateuser")
+        //        print(UserDefaults.standard.object(forKey: "myFBID") as! String)
+        var myRequest = URLRequest(url: myURL!)
+        myRequest.httpMethod = "POST"
+        
+        // insert json data to the request
+        myRequest.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        myRequest.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: myRequest) { data, response, error in
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print(responseJSON)
+            }
+        }
+        task.resume()
+    }
+    
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print("completed login")
     }
@@ -107,9 +137,10 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
     }
     
     @IBAction func scoreboard(_ sender: Any) {
-        let id_list = UserDefaults.standard.stringArray(forKey: "id_list") ?? [String]()
-        let myURL = URL(string:"https://sleephr.herokuapp.com")
-        let myRequest = URLRequest(url: myURL!)
+        let myURL = URL(string: "https://sleephr.herokuapp.com/scoreboard?_id=\(UserDefaults.standard.object(forKey: "myFBID") as! String)")
+        //        print(UserDefaults.standard.object(forKey: "myFBID") as! String)
+        var myRequest = URLRequest(url: myURL!)
+        myRequest.httpMethod = "GET"
         webView.load(myRequest)
     }
     
