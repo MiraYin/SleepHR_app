@@ -9,17 +9,11 @@
 import UIKit
 import WebKit
 
-class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNavigationDelegate {
+class SecondViewController: UIViewController, WKNavigationDelegate {
     
     var webView: WKWebView!
     
     @IBOutlet var UIView: UIView!
-    
-    let loginButton: FBSDKLoginButton = {
-        let button = FBSDKLoginButton()
-        button.readPermissions = ["email"]
-        return button
-    }()
     
     func constrainView(view:UIView, toView contentView:UIView) {
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -28,12 +22,10 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
         view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
     }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         webView = WKWebView(frame: UIView.frame)
-        ///  setting the web view's navigationDelegate property to self, which means "when any web page navigation happens, please tell me."
         webView.navigationDelegate = self
         let myURL = URL(string:"https://sleephr.herokuapp.com")
         let myRequest = URLRequest(url: myURL!)
@@ -41,12 +33,9 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
         webView.allowsBackForwardNavigationGestures = true
         UIView.addSubview(webView)
         constrainView(view: webView, toView: UIView)
-        // Do any additional setup after loading the view, typically from a nib.
-        view.addSubview(loginButton)
-//        loginButton.center = view.center
-        loginButton.center = CGPoint(x: view.center.x, y: 570)
-        loginButton.delegate = self
+    }
     
+    override func viewWillAppear(_ animated: Bool) {
         if(FBSDKAccessToken.current() != nil){
             fetchProfile()
         }else{
@@ -57,11 +46,9 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
     }
     
     func fetchProfile(){
-        print("fetch profile")
-        
         FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name"]).start {(connection, result, error) -> Void in
             if error != nil{
-                print(error)
+                print(error!)
                 return
             }
             if let userInfo = result as? [String: Any] {
@@ -71,7 +58,7 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
         }
         FBSDKGraphRequest(graphPath: "me/friends", parameters: ["fields": "id"]).start {(connection, result, error) -> Void in
             if error != nil{
-                print(error)
+                print(error!)
                 return
             }
             if let userInfo = result as? [String: Any] {
@@ -119,18 +106,6 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
         task.resume()
     }
     
-    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        print("completed login")
-    }
-    
-    func loginButtonWillLogin(_ loginButton: FBSDKLoginButton!) -> Bool {
-        return true
-    }
-    
-    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
-        
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -138,7 +113,6 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
     
     @IBAction func scoreboard(_ sender: Any) {
         let myURL = URL(string: "https://sleephr.herokuapp.com/scoreboard?_id=\(UserDefaults.standard.object(forKey: "myFBID") as! String)")
-        //        print(UserDefaults.standard.object(forKey: "myFBID") as! String)
         var myRequest = URLRequest(url: myURL!)
         myRequest.httpMethod = "GET"
         webView.load(myRequest)
@@ -146,7 +120,6 @@ class SecondViewController: UIViewController, FBSDKLoginButtonDelegate, WKNaviga
     
     @IBAction func report(_ sender: Any) {
         let myURL = URL(string: "https://sleephr.herokuapp.com/report?_id=\(UserDefaults.standard.object(forKey: "myFBID") as! String)&analysisRange=\(10)")
-//        print(UserDefaults.standard.object(forKey: "myFBID") as! String)
         var myRequest = URLRequest(url: myURL!)
         myRequest.httpMethod = "GET"
         webView.load(myRequest)
