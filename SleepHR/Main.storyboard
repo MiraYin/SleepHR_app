@@ -56,9 +56,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n0t-iA-8eF">
-                                <rect key="frame" x="87" y="238" width="200" height="30"/>
+                                <rect key="frame" x="78" y="238" width="219" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Guide on Notification Setting"/>
+                                <state key="normal" title="Authorize sleepHR to iOS health"/>
                                 <connections>
                                     <action selector="getSleepAnalysis:" destination="9pv-A4-QxB" eventType="touchUpInside" id="oT0-Gn-yJr"/>
                                 </connections>

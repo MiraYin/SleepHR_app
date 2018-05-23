@@ -143,7 +143,7 @@ class FirstViewController: UIViewController, FBSDKLoginButtonDelegate {
             UserDefaults.standard.removeObject(forKey: "sleepTime")
             UserDefaults.standard.removeObject(forKey: "wakeTime")
             let urlString = "https://sleephr.herokuapp.com/survey?_id=\(UserDefaults.standard.object(forKey: "myFBID") as! String)&timeToSleep=\(timeToSleep.millisecondsSince1970)&timeToWake=\(timeToWake.millisecondsSince1970)"
-            
+
             let alert = UIAlertController(title: "Almost there", message: "Ready to save! Please first finish a 10-sec self-report survey honestly!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(action:UIAlertAction!) -> Void in
                 UIApplication.shared.open(URL(string: urlString)!, options: [:], completionHandler: nil)
@@ -241,7 +241,7 @@ class FirstViewController: UIViewController, FBSDKLoginButtonDelegate {
         
         // make combine estimation
         retrieveSleepAnalysis()
-        
+
         let userdefaults = UserDefaults.standard
         if(!userdefaults.contains(key: "sleepTime")){
             /// no record
@@ -262,7 +262,7 @@ class FirstViewController: UIViewController, FBSDKLoginButtonDelegate {
             /// use asleep value to distinguish from HKCategoryValueSleepAnalysis.inBed.rawValue
             
             let object = HKCategorySample(type:sleepType, value: HKCategoryValueSleepAnalysis.asleep.rawValue, start: UserDefaults.standard.object(forKey: "sleepTime") as! Date, end: UserDefaults.standard.object(forKey: "wakeTime") as! Date)
-            
+
             healthStore.save(object, withCompletion: { (success, error) -> Void in
                 if error != nil {
                     let alert = UIAlertController(title: "Error", message: "Cannot push data into Apple HealthKit!", preferredStyle: .alert)
